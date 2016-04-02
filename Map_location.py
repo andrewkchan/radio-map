@@ -13,7 +13,7 @@ def location_map(list_of_songs):
                         temp.append(loc)
                 if not(x==0 or x==90 or y==0 or y==180):
                     pnt_to_song[i[0]*x,i[1]*y]=temp
-                elif i==0:
+                elif i==[1,1]:
                     pnt_to_song[x,y]=temp
 
 """car loc is place holder"""
