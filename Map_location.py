@@ -13,7 +13,7 @@ def location_map(list_of_songs):
                         temp.append(loc)
                 if not(x==0 or x==90 or y==0 or y==180):
                     pnt_to_song[i[0]*x,i[1]*y]=temp
-                elif i==1:
+                elif i==0:
                     pnt_to_song[x,y]=temp
 
 """car loc is place holder"""
@@ -50,7 +50,6 @@ def check_empty(x,y,search):
             return True
     return False
     
-            
 def block_make(span):
     search_block=[]
     for i in range(span):
