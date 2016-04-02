@@ -78,7 +78,7 @@ var UserMarker = function(marker, path) {
   this.directionVec = {lat: this.overview_path[1].lat - this.overview_path[0].lat, lng: this.overview_path[1].lng - this.overview_path[0].lng};
   this.speed = 0.02; //units of latitude or longitude per second
 
-  this.timeToNextWaypoint = getVecMagnitude(this.directionVec)/this.speed * 1000; 
+  this.timeToNextWaypoint = getVecMagnitude(this.directionVec)/this.speed * 1000;
   //MILLISECONDS to next waypoint
   this.timeSpentOnLeg = 0;
 }
@@ -106,7 +106,7 @@ UserMarker.prototype.update = function(dt) {
       }
     }
     //continue on path to next waypoint
-    this.marker.setPosition({lat: this.lastWaypoint.lat + this.directionVec.lat * legPercentage, 
+    this.marker.setPosition({lat: this.lastWaypoint.lat + this.directionVec.lat * legPercentage,
                             lng: this.lastWaypoint.lng + this.directionVec.lng * legPercentage});
   }
   //get closest song
@@ -132,13 +132,13 @@ UserMarker.prototype.getClosestSong = function() {
     //console.log("finding closest song");
     //console.log("song dir:" + getDirVec({lat: me.marker.getPosition().lat(), lng: me.marker.getPosition().lng()}, {lat: songs[0].lat, lng: songs[0].lng}).lng);
     var closestSong = songs[0];
-    var closestDistance = getVecMagnitude(getDirVec({lat: me.marker.getPosition().lat(), lng: me.marker.getPosition().lng()}, 
+    var closestDistance = getVecMagnitude(getDirVec({lat: me.marker.getPosition().lat(), lng: me.marker.getPosition().lng()},
                                                     {lat: songs[0].lat, lng: songs[0].lng})
                                           );
     //console.log("closest dist:" + closestDistance);
     for(i = 0; i < songs.length; i++)
     {
-      var directionVec = getDirVec({lat: me.marker.getPosition().lat(), lng: me.marker.getPosition().lng()}, 
+      var directionVec = getDirVec({lat: me.marker.getPosition().lat(), lng: me.marker.getPosition().lng()},
                                   {lat: songs[i].lat, lng: songs[i].lng});
       var distance = getVecMagnitude(directionVec);
       if(distance < closestDistance)
@@ -303,14 +303,14 @@ function submitMap()
     }
   );
 
-  
+
 }
 
 
 $(document).ready(function() {
   main();
 })
- 
+
 //MAIN BODY----------------------
 function main() {
   $("#map-submitter").hide();
@@ -351,7 +351,7 @@ function main() {
       });
     }
   );
-  
+
   //receive entity list
   socket.on("transmit_songs",
     function(msg){
@@ -362,8 +362,8 @@ function main() {
       socket.emit("songs_received");
     }
   );
-  
-  socket.on('new_tweet', 
+
+  socket.on('new_tweet',
     function(msg){
       //console.log("new tweet from WebSocket server received!");
       processTweet(msg);
