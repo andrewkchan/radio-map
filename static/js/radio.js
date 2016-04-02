@@ -1,6 +1,8 @@
 var SCRIPT_VERSION = "104";
 var map;
 
+var socket;
+
 var markers = []; //big ass array
 var songs = []; //format: [{bucket_location1: [{song1}, {song2}]}, {bucket_location2: [{song1}, {song2}]}]
 
@@ -12,6 +14,8 @@ var me = null;
 
 var isPlayerLoaded = false;
 var player; //youtube video player
+
+var isExploreMode = false;
 
 
 function onYouTubeIframeAPIReady() { //callback used when youtube API code downloads
@@ -246,7 +250,7 @@ function clearMarkers() {
 
 function processSongs(list_songs)
 {
-  if(list_songs.length > 0 && isMapLoaded && !songsProcessed && isPlayerLoaded && isDirectionsLoaded)
+  if(list_songs.length > 0 && isMapLoaded && !songsProcessed && isPlayerLoaded && isDirectionsLoaded && !isExploreMode)
   {
     console.log("isDirectionsLoaded:"+ isDirectionsLoaded);
     for(i = 0; i < list_songs.length; i++)
@@ -259,6 +263,45 @@ function processSongs(list_songs)
   }
 }
 
+//add a user-specified song from the song-pin-menu onto the center of the map
+function addSong()
+{
+  var inputArtistName = $("#artist-name-input").val();
+  var inputSongName = $("#song-name-input").val();
+  var inputYoutubeURL = $("#youtube-link-input").val();
+
+  if(inputArtistName.length > 0 && inputSongName.length > 0 && inputYoutubeURL.length > 0)
+  {
+    songs.push({"lat": map.getCenter().lat(), "lng": map.getCenter().lng(), "songName": inputSongName, "artistName": inputArtistName, "youtubeLink": inputYoutubeURL});
+    addMarkerWithTimeout(map.getCenter().lat(), map.getCenter().lng(), 0, inputArtistName, inputSongName);
+  }
+  else
+  {
+    alert("Please input text in all fields");
+  }
+}
+//submit the user-created map
+function submitMap()
+{
+  var inputMapName = $("#submission-name").val();
+
+  socket.emit("check_name", {"name": inputMapName});
+
+  socket.on("bad_submission_name",
+    function(){
+      alert("Please choose a different map name, that name is already in use!!!!");
+    }
+  );
+  socket.on("ok_submission",
+    function(){
+      socket.emit("submit_map", {"songs": songs, "name": inputMapName});
+      alert("Map submitted!!!! You are cool!!!");
+    }
+  );
+
+  
+}
+
 
 $(document).ready(function() {
   main();
@@ -266,9 +309,11 @@ $(document).ready(function() {
  
 //MAIN BODY----------------------
 function main() {
-  console.log("main loaded");
+  $("#map-submitter").hide();
+  $("#song-pin-menu").hide();
+  //console.log("main loaded");
   //var socket = io.connect("http://" + document.domain + ":" + location.port + "/test");
-  var socket = io.connect();
+  socket = io.connect();
   console.log("starting websocket connection");
 
   //send an explicit package to the server upon connection
@@ -278,11 +323,37 @@ function main() {
       socket.emit("version_verification", {version: SCRIPT_VERSION});
     }
   );
+
+  socket.on("choose_option",
+    function(msg){
+      console.log("options received");
+      var maplist = msg["maps"];
+      for(i = 0; i < maplist.length; i++)
+      {
+        $("#map-select").append($("<option></option>").val(maplist[i]).html(maplist[i]));
+      }
+      $("#landing-hits").click(function(){
+        socket.emit("query_map", {map: $("#map-select").val()});
+      });
+      $("#landing-explore").click(function(){
+        isExploreMode = true;
+        map.set('draggable', true);
+        $("#map-menu").hide();
+        $("#map-submitter").show();
+        $("#map-submit-btn").click(function(){submitMap();});
+
+        $("#song-pin-menu").show();
+        $("#song-add-btn").click(function(){addSong();});
+      });
+    }
+  );
   
   //receive entity list
   socket.on("transmit_songs",
     function(msg){
       songs = msg["data"];
+      console.log("songs received");
+      $("#map-menu").hide();
       processSongs(songs);
       socket.emit("songs_received");
     }

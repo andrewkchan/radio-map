@@ -11,32 +11,14 @@ app.config["UPLOAD_FOLDER"] = 'uploaded_assets'
 
 socketio = SocketIO(app)
 
-'''
-def process(data):
-    keyword = False
-    for k in keywords:
-        if k in data['text'].lower():
-            keyword = k
-    if not keyword or data['user']['lang'] != 'en':
-        return
-    tweet = {'name': data['user']['screen_name'], 
-            'text': data['text'], 
-            'url': 'https://twitter.com/statuses/' + str(data['id']), 
-            'time': data['created_at'], 
-            'favorites': data['favorite_count'], 
-            'retweets': data['retweet_count'], 
-            'keyword': keyword}
-    print(tweet['time'])
-    print('@%s: %s' % (data['user']['screen_name'], data['text'].encode('ascii', 'ignore')))
-    #broadcast the tweet to all connected clients
-    socketio.emit('new_tweet', tweet)
-'''
 songs = [{"lat": "37.8716", "lng": "-122.2727", "songName": "Billie Jean", "artistName": "Michael Jackson", "youtubeLink": "https://www.youtube.com/watch?v=Zi_XLOBDo_Y"},
         {"lat": "37.3382", "lng": "-121.8863", "songName": "Big Pimpin'", "artistName": "Jay Z", "youtubeLink": "https://www.youtube.com/watch?v=Cgoqrgc_0cM"},
         {"lat": "36.9741", "lng": "-122.0308", "songName": "Everybody Wants to Rule the World", "artistName": "Tears for Fears", "youtubeLink": "https://www.youtube.com/watch?v=ST86JM1RPl0"},
         {"lat": "36.0083", "lng": "-119.9618", "songName": "American Ride", "artistName": "Toby Keith", "youtubeLink": "https://www.youtube.com/watch?v=zNDcAWNscg8"},
         {"lat": "34.4208", "lng": "-119.6982", "songName": "Headlines", "artistName": "Drake", "youtubeLink": "https://www.youtube.com/watch?v=cimoNqiulUE"},
         {"lat": "34.0522", "lng": "-118.2437", "songName": "Jumpman", "artistName": "Drake", "youtubeLink": "https://www.youtube.com/watch?v=NiM5ARaexPE"}]
+
+maps = {"billboard": songs}
 
 
 #Routes----------------------------------------------------
@@ -64,7 +46,25 @@ def test_message(message):
 @socketio.on('connect')
 def test_connect():
     print("CLIENT CONNECTED")
-    emit('transmit_songs', {"data": songs})
+    #emit('transmit_songs', {"data": songs})
+    emit('choose_option', {'maps': [keys for keys in maps]})
+
+@socketio.on('query_map')
+def transmit_songs(message):
+    print("Client queried map for mapname{}".format(message["map"]))
+    emit("transmit_songs", {"data": maps[message["map"]]})
+
+@socketio.on('check_name')
+def check_name(message):
+    if message["name"] in maps:
+        emit('bad_submission_name', {"you are": "stupid"})
+    else:
+        emit('ok_submission', {"that is": "acceptable"})
+
+@socketio.on('submit_map')
+def process_submission(message):
+    if not message["name"] in maps:
+        maps[message["name"]] = message["songs"]
 
 @socketio.on("version_verification")
 def print_client_version(message):
@@ -81,4 +81,7 @@ def entities_received():
 #------------------------------------------------------------
 
 if __name__=="__main__":
+    #-------------------
+    #put any functions that need to be run before server starts serving clients here
+    #-------------------
     socketio.run(app, host="0.0.0.0")

@@ -21,6 +21,26 @@
 </head>
  
 <body>
+    <div id="map-submitter">
+        <input type="text" class="form-control" id="submission-name" placeholder="Enter hitmap name">
+        <button class="btn btn-1 btn-1a" id="map-submit-btn">Submit my hitmap!</button>
+    </div>
+
+    <div id="song-pin-menu">
+        <input type="text" class="form-control" id="youtube-link-input" placeholder="Youtube URL">
+        <input type="text" class="form-control" id="song-name-input" placeholder="Song name">
+        <input type="text" class="form-control" id="artist-name-input" placeholder="Artist name">
+        <button class="btn btn-1 btn-1a" id="song-add-btn">Add pin on map</button>
+    </div>
+
+    <div id="map-menu">
+        <select id="map-select" class="form-control">
+            <!--empty at start-->
+        </select>
+        <button class="btn btn-1 btn-1a" id="landing-hits">Go!</button>
+        <button class="btn btn-1 btn-1a" id="landing-explore">Make my own hitmap</button>
+    </div>
+
     <div id="player"></div> <!--will be replaced by youtube player (<iframe> tag) -->
 
     <script>
