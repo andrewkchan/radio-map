@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Radio Map</title>
+  <link type="text/css" rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <!-- FONTS -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Molengo|Poiret+One|Josefin+Sans|Signika|Abril+Fatface' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hammersmith+One' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <div class="container-fluid">
+  <!-- Hide landing after button click -->
+    <section class="landing">
+      <div class="center">
+        <h1 id="landing-logo">AudioMap</h1>
+        <h3>take a virtual road trip through music</h3>
+        <!-- <input type="text" class="form-control" placeholder="starting location">
+        <input type="text" class="form-control" placeholder="end location"> -->
+        <button class="btn btn-1 btn-1a" id="landing-hits">cruise through top singles</button>
+        <button class="btn btn-1 btn-1a" id="landing-hits">explore</button>
+      </div>
+    </section>
+  <!-- Show results after button click -->
+    <section class="roadtrip">
+      <div id="nav">
+        <h1>AudioMap</h1>
+        <a href="/" role="button">make yo own audio roadtrip</a>
+      </div>
+      
+      <div id="youtube">
+        <!-- <div id="video"></div> -->
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/L53gjP-TtGE" frameborder="0" allowfullscreen></iframe>
+        <!-- <h5>youtube video title here beep boop</h5> -->
+      </div>
+
+      <div id="map">
+        <!-- <img src="system_map.png"> -->
+      </div>
+
+      <div id="info">
+        <table class="table table-condensed" style="table-layout:fixed">
+            <tbody>
+                <tr>
+                    <th>City</th><th>Artist</th><th>Album</th><th>Top Song</th>
+                </tr>
+                <tr>
+                    <td>Los Angeles, CA</td><td>Kanye West</td><td>The Life of Pablo</td><td>Ultralight Beam</td>
+                </tr>
+                <tr>
+                    <td>Los Angeles, CA</td><td>Kanye West</td><td>The Life of Pablo</td><td>Ultralight Beam</td>
+                </tr>
+                <tr>
+                    <td>Los Angeles, CA</td><td>Kanye West</td><td>The Life of Pablo</td><td>Ultralight Beam</td>
+                </tr>
+                <tr>
+                    <td>Los Angeles, CA</td><td>Kanye West</td><td>The Life of Pablo</td><td>Ultralight Beam</td>
+                </tr>
+                <tr>
+                    <td>Los Angeles, CA</td><td>Kanye West</td><td>The Life of Pablo</td><td>Ultralight Beam</td>
+                </tr>
+                <tr>
+                    <td>Los Angeles, CA</td><td>Kanye West</td><td>The Life of Pablo</td><td>Ultralight Beam</td>
+                </tr>
+            </tbody>
+        </table>
+     </div>
+</section>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
