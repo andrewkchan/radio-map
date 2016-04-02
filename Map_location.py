@@ -11,9 +11,13 @@ def location_map(list_of_songs):
                     temp=[]
                     if math.floor(loc[0])==i[0]*x and math.ceil(loc[1])==i[1]*y:
                         temp.append(loc)
-                if not(x==0 or x==90 or y==0 or y==180):
+                if x!=0 or y!=0 or y!=180:
                     pnt_to_song[i[0]*x,i[1]*y]=temp
-                elif i==[1,1]:
+                elif x==0 and y!=0 and y!=180:
+                    pnt_to_song[x,i[1]*y]=temp
+                elif (y==0 or y==180) and x!=0:
+                    pnt_to_song[i[0]*x,y]=temp
+                elif i[1]*y!=-180:
                     pnt_to_song[x,y]=temp
 
 """car loc is place holder"""
@@ -34,10 +38,10 @@ def nearest(car_loc):
     return possible[1]
 
 def prune_ends(x,y):
-    if x>90:
-        x=-180+x
+    if x>=90:
+        x=90+(90-x)
     elif x<=-90:
-        x=180+x
+        x=-90+(-90-x)
     if y>180:
         y=-360+y
     elif y<=-180:
