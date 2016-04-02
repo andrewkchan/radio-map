@@ -10,7 +10,8 @@ class Song:
         self.songLink = ''
         self.artistName = ''
         self.artistLink = ''
-        self.artistHometown = ''
+        self.latd = ''
+        self.longd = ''
 
 def read(file_name):
     file = open(file_name + '.htm', 'r')
@@ -59,15 +60,31 @@ def read(file_name):
 
 def artist_hometown(song):
         artist_page = urllib.request.urlopen("https://en.wikipedia.org/w/index.php?action=raw&title=" + song.artistLink).read()
-        print('fetched page for', song.songName)
         hometown = ''
         for i in range(len(artist_page)):
-            if artist_page[i - 11:i] == 'birth_place':
-                print('asdf')
-                while artist_page[i - 2:i] != '[[':
+            if artist_page[i - 11:i] == b'birth_place':
+                while artist_page[i - 2:i] != b'[[':
                     i += 1
-                while artist_page[i] != ']':
-                    hometown += artist_page[i]
+                while artist_page[i:i + 1].decode('ascii') != ']' and artist_page[i:i + 1].decode('ascii') != '|':
+                    hometown += artist_page[i:i + 1].decode('ascii')
                     i += 1
-                print(hometown)
-        #hometown_page = urllib.request.urlopen("https://en.wikipedia.org/w/index.php?action=raw&title=" + hometown).read()
+                hometown = title_to_id(hometown)
+                hometown_page = urllib.request.urlopen("https://en.wikipedia.org/w/index.php?action=raw&title=" + hometown).read()
+                for i in range(len(hometown_page)):
+                    if artist_page[i - 4:i] == b'latd':
+                        while artist_page[i - 2:i] != b'= ':
+                            i += 1
+                        while artist_page[i:i + 1].decode('ascii') != '\n':
+                            song.latd += artist_page[i:i + 1].decode('ascii')
+                            i += 1
+                        print(song.latd)
+                break
+
+def title_to_id(title):
+    id = ''
+    for c in title:
+        if c == ' ':
+            id += '_'
+        else:
+            id += c
+    return id
