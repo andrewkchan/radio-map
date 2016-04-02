@@ -38,9 +38,9 @@ def nearest(car_loc):
     return possible[1]
 
 def prune_ends(x,y):
-    if x>=90:
+    if x>90:
         x=90+(90-x)
-    elif x<=-90:
+    elif x<-90:
         x=-90+(-90-x)
     if y>180:
         y=-360+y
