@@ -6,7 +6,7 @@ $(document).ready(function() {
 		$('html').css('background-color', 'white');
 		$('body').css('background-color', 'white');
 	});
-	$('h1').click(function() {
+	$('#landing-logo').click(function() {
 		('.roadtrip').hide();
 		('.landing').show();
 		$('html').css('background-color', '#27ae60');
