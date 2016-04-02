@@ -20,8 +20,8 @@ var isExploreMode = false;
 
 function onYouTubeIframeAPIReady() { //callback used when youtube API code downloads
   player = new YT.Player('player', {
-    height: '100',
-    width: '200',
+    height: '175',
+    width: '250',
     videoId: '',
     events: {
       'onReady': onPlayerReady,
@@ -153,6 +153,10 @@ UserMarker.prototype.getClosestSong = function() {
   }
   return null;
 }
+//---------------------------------------------------
+
+
+
 //---------------------------------------------------
 
 //callback, called when google maps API authenticates the app (see html file for where callback is input)

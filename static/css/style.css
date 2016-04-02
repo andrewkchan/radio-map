@@ -13,8 +13,8 @@ html, body {
   top: 0;
   right: 0;
   z-index: 2;
-  width: 200px;
-  height: 100px;
+  width: 250px;
+  height: 175px;
 }
 #map-submitter {
   position: absolute;
