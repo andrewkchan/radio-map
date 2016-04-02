@@ -1,0 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#map {
+  /*position: absolute;*/
+  height: 100%;
+  /*z-index: 1;*/
+}
+#player {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: 200px;
+  height: 100px;
+}

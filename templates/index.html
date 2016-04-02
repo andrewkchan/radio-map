@@ -12,7 +12,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="../static/js/game.js"></script>
+    <script src="../static/js/radio.js"></script>
     <link href="../static/css/style.css" rel="stylesheet">
     <!--<script src="../static/js/placeholdergame.js"></script>-->
     <!--<link href="../static/css/canvas_scaler.css" rel="stylesheet">-->
@@ -21,7 +21,21 @@
 </head>
  
 <body>
-    <p>eyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
+    <div id="player"></div> <!--will be replaced by youtube player (<iframe> tag) -->
+
+    <script>
+      //This code loads the YouTube IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+
+    <div id="map"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7NHxFw4kCncxBrP8ztT5EsRveljpAHR0&callback=initMap"
+    async defer></script>
     
 </body>
  

@@ -31,7 +31,12 @@ def process(data):
     #broadcast the tweet to all connected clients
     socketio.emit('new_tweet', tweet)
 '''
-
+songs = [{"lat": "37.8716", "lng": "-122.2727", "songName": "Billie Jean", "artistName": "Michael Jackson", "youtubeLink": "https://www.youtube.com/watch?v=Zi_XLOBDo_Y"},
+        {"lat": "37.3382", "lng": "-121.8863", "songName": "Big Pimpin'", "artistName": "Jay Z", "youtubeLink": "https://www.youtube.com/watch?v=Cgoqrgc_0cM"},
+        {"lat": "36.9741", "lng": "-122.0308", "songName": "Everybody Wants to Rule the World", "artistName": "Tears for Fears", "youtubeLink": "https://www.youtube.com/watch?v=ST86JM1RPl0"},
+        {"lat": "36.0083", "lng": "-119.9618", "songName": "American Ride", "artistName": "Toby Keith", "youtubeLink": "https://www.youtube.com/watch?v=zNDcAWNscg8"},
+        {"lat": "34.4208", "lng": "-119.6982", "songName": "Headlines", "artistName": "Drake", "youtubeLink": "https://www.youtube.com/watch?v=cimoNqiulUE"},
+        {"lat": "34.0522", "lng": "-118.2437", "songName": "Jumpman", "artistName": "Drake", "youtubeLink": "https://www.youtube.com/watch?v=NiM5ARaexPE"}]
 
 
 #Routes----------------------------------------------------
@@ -59,7 +64,7 @@ def test_message(message):
 @socketio.on('connect')
 def test_connect():
     print("CLIENT CONNECTED")
-    emit('transmit_entities', {"data": "payload"})
+    emit('transmit_songs', {"data": songs})
 
 @socketio.on("version_verification")
 def print_client_version(message):
