@@ -1,5 +1,6 @@
 import math
 pnt_to_song={}
+"""list of songs is place holder"""
 list_of_songs=[["x","y","song"],[]]
 val=[[1,1],[1,-1],[-1,1],[-1,-1]]
 def location_map(list_of_songs):
@@ -15,7 +16,7 @@ def location_map(list_of_songs):
                 elif i==1:
                     pnt_to_song[x,y]=temp
 
-
+"""car loc is place holder"""
 car_loc=["x","y"]
 def nearest(car_loc):
     x=math.floor(car_loc[0])
@@ -34,14 +35,14 @@ def nearest(car_loc):
 
 def prune_ends(x,y):
     if x>90:
-        new_x=-180+x
+        x=-180+x
     elif x<=-90:
-        new_x=180+x
+        x=180+x
     if y>180:
-        new_y=-360+y
+        y=-360+y
     elif y<=-180:
-        new_y=360+y
-    return new_x,new_y
+        y=360+y
+    return x,y
 
 def check_empty(x,y,search):
     for sub in search:
