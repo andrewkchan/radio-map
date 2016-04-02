@@ -22,7 +22,7 @@ def nearest(car_loc):
     x=math.floor(car_loc[0])
     y=math.ceil(car_loc[1])
     search_block=[[0,0]]
-    while check_empty(x,y,search_block)==False:
+    while check_empty(x,y,search_block)==True:
         search_block=block_make(max(search_block)[0]+2)
     possible=[]
     for sub in search_block:
@@ -47,8 +47,8 @@ def prune_ends(x,y):
 def check_empty(x,y,search):
     for sub in search:
         if pnt_to_song[x+sub[0],y+sub[1]]!=[]:
-            return True
-    return False
+            return False
+    return True
     
 def block_make(span):
     search_block=[]
